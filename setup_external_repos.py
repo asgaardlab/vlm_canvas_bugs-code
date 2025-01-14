@@ -55,7 +55,7 @@ def main():
     # Clone or update each repository
     for repo_name in REPO_NAMES:
         repo_local_dir = Path(EXTERNAL_REPOS_PATH) / repo_name
-        repo_url = f"https://github.com/vlm_canvas_bugs-external_repos/{repo_name}.git"
+        repo_url = f"https://github.com/vlm-canvas-bugs-external-repos/{repo_name}.git"
 
         if repo_local_dir.exists():
             print(f"Updating {repo_name}...")
