@@ -1,0 +1,16 @@
+[
+    {
+        "name": "query_repository_files",
+        "description": "Query the repository files for the given query",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "query": {
+                    "type": "string",
+                    "description": "The query to search the repository files for"
+                }
+            },
+            "required": ["query"]
+        }
+    }
+]

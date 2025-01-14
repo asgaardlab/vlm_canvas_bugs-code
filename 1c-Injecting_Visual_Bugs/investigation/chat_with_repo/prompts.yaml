@@ -1,0 +1,33 @@
+prepend:
+  prompt_generic: |
+    Given the provided context, answer the user query.
+    If the required context is not provided, notify the user.
+
+  prompt_zero_shot_cot: Let's think step by step.
+
+make_startup_scripts:
+  prompt_system: |
+    You process commands from the user and respond with the results.
+    You do not talk to the user.
+
+  prompt_for_installation_steps: |
+    Can you describe how to install, build, and run the following application for local development on Ubuntu?
+    {}{}
+
+  query_repository_files: How to install, build, and run for local development on Ubuntu
+
+  prompt_make_script: |
+    Can you turn the above steps into a bash script?
+    Including handling the errors as described above (if they are indeed described).
+    Any other errors should be saved to a log file.
+
+  prompt_fake_initial: |
+    Can you generate a bash script that installs and runs the following application?
+    {}{}
+
+  prompt_make_json: |
+    Create a JSON file with the following information:
+      - url: The URL of the repository
+      - prereqs: List of prerequisites
+      - perms: List of required permissions
+    Reply with ONLY the json file. Do not acknowledge this conversation.

@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "outDir": "../dist/e2e_test_scripts",
+    "rootDir": "./e2e_test_scripts",
+    "module": "commonjs",
+    "target": "es6",
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "skipLibCheck": true,
+    "types": [
+      "node",
+      "fs-extra-promise"
+    ],
+    "baseUrl": ".",
+  },
+  "include": ["e2e_test_scripts/**/*.ts", "typings.d.ts"],
+  "exclude": ["node_modules", "e2e_test_scripts/_example"]
+}

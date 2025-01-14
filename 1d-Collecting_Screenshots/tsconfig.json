@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "outDir": "../dist/screenshot-collector",
+    "rootDir": "./src",
+    "module": "commonjs",
+    "target": "es6",
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "skipLibCheck": true,
+    "types": [
+      "node",
+      "fs-extra-promise"
+    ],
+    "baseUrl": ".",
+  },
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules"]
+}

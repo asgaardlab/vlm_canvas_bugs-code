@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Call Graph Visualization</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+
+<body>
+    <script>
+        function convertToD3Format(data) {
+            const nodeSet = new Set(data.nodes);
+            const nodes = data.nodes.map((node, index) => ({
+                id: node,
+                group: 1 // Optional: assign groups or categories if needed
+            }));
+
+            const links = [];
+            Object.keys(data.edges).forEach((source) => {
+                data.edges[source].forEach((target) => {
+                    if (!nodeSet.has(source)) {
+                        console.warn(`Source node '${source}' is missing from nodes list. Adding it dynamically.`);
+                        nodes.push({ id: source, group: 1 });
+                        nodeSet.add(source);
+                    }
+                    if (!nodeSet.has(target)) {
+                        console.warn(`Target node '${target}' is missing from nodes list. Adding it dynamically.`);
+                        nodes.push({ id: target, group: 1 });
+                        nodeSet.add(target);
+                    }
+
+                    links.push({
+                        source: source,
+                        target: target,
+                        value: 1, // Optional: specify the strength of the links if needed
+                    });
+                });
+            });
+
+            return { nodes, links };
+        }
+
+        const callGraph =
+            fetch('./callGraph')
+                .then(response => response.json())
+                .then(response => convertToD3Format(response))
+                .then(graphData => {
+                    // Now you have your graph data, you can visualize it with D3.js
+                    const width = 800;
+                    const height = 600;
+
+                    const zoomHandler = d3.zoom()
+                        .on("zoom", (event) => {
+                            container.attr("transform", event.transform);
+                        });
+
+
+                    const svg = d3.select("body").append("svg")
+                        .attr("width", width)
+                        .attr("height", height)
+                        .call(zoomHandler)
+                        .append("g");
+
+                    svg.append("defs").selectAll("marker")
+                        .data(["end"])      // Just one marker type for now; you could define more or customize this
+                        .enter().append("marker")
+                        .attr("id", String)
+                        .attr("viewBox", "0 -5 10 10")
+                        .attr("refX", 25)   // This sets the distance of the arrowhead from the node. Adjust as needed.
+                        .attr("refY", 0)
+                        .attr("markerWidth", 6)
+                        .attr("markerHeight", 6)
+                        .attr("orient", "auto")
+                        .append("path")
+                        .attr("d", "M0,-5L10,0L0,5");
+
+                    const container = svg.append("g");
+
+                    const simulation = d3.forceSimulation(graphData.nodes)
+                        .force("link", d3.forceLink(graphData.links).id(d => d.id))
+                        .force("charge", d3.forceManyBody())
+                        .force("center", d3.forceCenter(width / 2, height / 2));
+
+                    const link = container.append("g")
+                        .attr("class", "links")
+                        .selectAll("line")
+                        .data(graphData.links)
+                        .enter().append("line")
+                        .attr("marker-end", "url(#end)")
+                        .style("stroke", "#999");
+
+                    const node = container.append("g")
+                        .attr("class", "nodes")
+                        .selectAll("g")
+                        .data(graphData.nodes)
+                        .enter().append("g")
+                        .call(d3.drag()
+                            .on("start", dragstarted)
+                            .on("drag", dragged)
+                            .on("end", dragended));
+
+                    node.append("circle")
+                        .attr("r", 5);
+
+                    node.append("text")
+                        .text(d => d.id)
+                        .style("fill", "#555")  // Text color
+                        .style("font-family", "Arial")
+                        .style("font-size", 12)
+                        .attr("x", 8)
+                        .attr("y", 3);
+
+                    simulation.on("tick", () => {
+                        link
+                            .attr("x1", d => d.source.x)
+                            .attr("y1", d => d.source.y)
+                            .attr("x2", d => d.target.x)
+                            .attr("y2", d => d.target.y);
+
+                        node
+                            .attr("transform", d => `translate(${d.x},${d.y})`);
+                    });
+
+                    function dragstarted(event) {
+                        if (!event.active) simulation.alphaTarget(0.3).restart();
+                        event.subject.fx = event.subject.x;
+                        event.subject.fy = event.subject.y;
+                    }
+
+                    function dragged(event) {
+                        event.subject.fx = event.x;
+                        event.subject.fy = event.y;
+                    }
+
+                    function dragended(event) {
+                        if (!event.active) simulation.alphaTarget(0);
+                        event.subject.fx = null;
+                        event.subject.fy = null;
+                    }
+
+                })
+                .catch(error => console.error('Error loading the call graph data:', error));
+    </script>
+</body>
+
+</html>

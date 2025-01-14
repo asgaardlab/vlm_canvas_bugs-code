@@ -1,0 +1,20 @@
+{
+    "compilerOptions": {
+      "module": "commonjs",
+      "target": "es6",
+      "strict": true,
+      "forceConsistentCasingInFileNames": true,
+      "esModuleInterop": true,
+      "moduleResolution": "node",
+      "skipLibCheck": true,
+      "declaration": false,
+      "sourceMap": false,
+      "types": [
+        "node",
+        "fs-extra-promise",
+      ]
+    },
+    "include": ["*.ts"],
+    "exclude": ["node_modules"]
+  }
+  
