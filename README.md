@@ -5,7 +5,7 @@
 
 - Paper pre-print: `...`
 - Data on Zenodo: [bit.ly/vlm_canvas_bugs-data](https://bit.ly/vlm_canvas_bugs-data)
-- Repositories containing `<canvas>` applications: [vlm_canvas_bugs-external_repos](https://github.com/vlm_canvas_bugs-external_repos?tab=repositories) GitHub account
+- Repositories containing `<canvas>` applications: [vlm-canvas-bugs-external-repos](https://github.com/vlm-canvas-bugs-external-repos?tab=repositories) GitHub account
 
 ## How to use this replication package
 
