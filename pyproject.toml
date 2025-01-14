@@ -1,0 +1,55 @@
+[tool.poetry]
+name = "vlm_canvas_bugs"
+version = "0.0.1"
+description = "Replication package for the paper 'Exploring the Capabilities of VLMs to Detect Visual Bugs in HTML5 Canvas Applications.'"
+authors = ["Finlay Macklon"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+matplotlib = "^3.9.1"
+numpy = "^2.0.1"
+pandas = "^2.2.2"
+pillow = "^10.4.0"
+scikit-image = "^0.24.0"
+requests = "^2.32.3"
+openai = "^1.41.0"
+ipykernel = "^6.25.2"
+ipywidgets = "^8.1.1"
+gitpython = "^3.1.37"
+sqlitedict = "^2.1.0"
+faiss-cpu = "^1.7.4"
+llama-index-core = "^0.10.13"
+llama-index-readers-file = "^0.1.6"
+llama-index-embeddings-openai = "^0.1.6"
+llama-index-vector-stores-faiss = "^0.1.2"
+llama-index-callbacks-wandb = "^0.1.2"
+wandb = "^0.16.3"
+python-dotenv = "^1.0.1"
+pyyaml = "^6.0.2"
+github-dependents-info = "^1.6.3"
+seaborn = "^0.13.2"
+tiktoken = "^0.8.0"
+
+[tool.poetry.group.dev.dependencies]
+pre-commit = "^3.5.0"
+nbconvert = "^7.9.2"
+coverage = "^7.4.1"
+flake8 = "^7.0.0"
+flake8-pyproject = "^1.2.3"
+black = {extras = ["jupyter"], version = "^24.2.0"}
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+line-length = 88
+
+[tool.flake8]
+max-line-length = 88
+exclude = "benchmark"
+ignore = [
+    "E501", # Line too long: handled by black at max of 88 wherever possible
+    "W503" # Line break before binary operator: not aligned with PEP8 standard
+]
