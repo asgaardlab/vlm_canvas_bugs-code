@@ -163,7 +163,7 @@ poetry run python3 setup_external_repos.py
 
 (or if not using poetry, run `python3 setup_external_repos.py` within your virtual environment)
 
-Alternatively, you can clone them one-by-one from the  [vlm_canvas_bugs-external_repos](https://github.com/vlm_canvas_bugs-external_repos?tab=repositories) GitHub account. If not using the provided Python script, make sure the destination parent folder of the repositories matches the relative path set for the `VLM_CANVAS_BUGS_EXTERNAL_REPOS_PATH` environment variable in `.env`. 
+Alternatively, you can clone them one-by-one from the  [vlm_canvas_bugs-external_repos](https://github.com/vlm-canvas-bugs-external-repos?tab=repositories) GitHub account. If not using the provided Python script, make sure the destination parent folder of the repositories matches the relative path set for the `VLM_CANVAS_BUGS_EXTERNAL_REPOS_PATH` environment variable in `.env`. 
 
 ### 7. Running the code
 
